@@ -1,0 +1,33 @@
+datasets/
+node_modules/
+dist/
+*.log
+.DS_Store
+.env
+.env.local
+*.tmp
+*.temp
+.install-version
+.claude/settings.local.json
+.claude/agents/
+.claude/skills/
+plugin/data/
+plugin/data.backup/
+package-lock.json
+bun.lock
+private/
+datasets/
+
+# Generated UI files (built from viewer-template.html)
+src/ui/viewer.html
+
+# Local MCP server config (for development only)
+.mcp.json
+.cursor/
+
+# Prevent literal tilde directories (path validation bug artifacts)
+~*/
+
+# Prevent other malformed path directories
+http*/
+https*/
