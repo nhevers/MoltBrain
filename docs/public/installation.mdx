@@ -1,0 +1,112 @@
+---
+title: "Installation"
+description: "Install claude-recall plugin for persistent memory across sessions"
+---
+
+# Installation Guide
+
+## Quick Start
+
+Install claude-recall directly from the plugin marketplace:
+
+```bash
+/plugin marketplace add nhevers/claude-recall
+/plugin install claude-recall
+```
+
+That's it! The plugin will automatically:
+- Download prebuilt binaries (no compilation needed)
+- Install all dependencies (including SQLite binaries)
+- Configure hooks for session lifecycle management
+- Auto-start the worker service on first session
+
+Start a new Claude Code session and you'll see context from previous sessions automatically loaded.
+
+## System Requirements
+
+- **Node.js**: 18.0.0 or higher
+- **Claude Code**: Latest version with plugin support
+- **Bun**: JavaScript runtime and process manager (auto-installed if missing)
+- **SQLite 3**: For persistent storage (bundled)
+
+## Advanced Installation
+
+For development or testing, you can clone and build from source:
+
+### Clone and Build
+
+```bash
+# Clone the repository
+git clone https://github.com/nhevers/claude-recall.git
+cd claude-recall
+
+# Install dependencies
+npm install
+
+# Build hooks and worker service
+npm run build
+
+# Worker service will auto-start on first Claude Code session
+# Or manually start with:
+npm run worker:start
+
+# Verify worker is running
+npm run worker:status
+```
+
+### Post-Installation Verification
+
+#### 1. Automatic Dependency Installation
+
+Dependencies are installed automatically during plugin installation. The SessionStart hook also ensures dependencies are up-to-date on each session start (this is fast and idempotent). Works cross-platform on Windows, macOS, and Linux.
+
+#### 2. Verify Plugin Installation
+
+Check that hooks are configured in Claude Code:
+```bash
+cat extension/lifecycle/lifecycle.json
+```
+
+#### 3. Data Directory Location
+
+Data is stored in `~/.claude-recall/`:
+- Database: `~/.claude-recall/claude-recall.db`
+- PID file: `~/.claude-recall/.worker.pid`
+- Port file: `~/.claude-recall/.worker.port`
+- Logs: `~/.claude-recall/logs/worker-YYYY-MM-DD.log`
+- Settings: `~/.claude-recall/settings.json`
+
+Override with environment variable:
+```bash
+export CLAUDE_RECALL_DATA_DIR=/custom/path
+```
+
+#### 4. Check Worker Logs
+
+```bash
+npm run worker:logs
+```
+
+#### 5. Test Context Retrieval
+
+```bash
+npm run test:context
+```
+
+## Upgrading
+
+Upgrades are automatic when updating via the plugin marketplace. Key changes in recent versions:
+
+**v7.1.0**: PM2 replaced with native Bun process management. Migration is automatic on first hook trigger.
+
+**v7.0.0+**: 11 configuration settings, dual-tag privacy system.
+
+**v5.4.0+**: Skill-based search replaces MCP tools, saving ~2,250 tokens per session.
+
+See [CHANGELOG](https://github.com/nhevers/claude-recall/blob/main/CHANGELOG.md) for complete version history.
+
+## Next Steps
+
+- [Getting Started Guide](usage/getting-started) - Learn how claude-recall works automatically
+- [MCP Search Tools](usage/search-tools) - Query your project history
+- [Configuration](configuration) - Customize claude-recall behavior
