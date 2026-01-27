@@ -1,0 +1,77 @@
+{
+  "id": "research",
+  "name": "Research Mode",
+  "description": "Optimized for research, analysis, and literature review workflows",
+  "version": "1.0.0",
+  "author": "community",
+  "observation_types": [
+    {
+      "type": "finding",
+      "description": "A research finding, insight, or key result",
+      "icon": "🔍",
+      "color": "#3b82f6",
+      "priority": 1
+    },
+    {
+      "type": "source",
+      "description": "A source, reference, or citation",
+      "icon": "📚",
+      "color": "#8b5cf6",
+      "priority": 2
+    },
+    {
+      "type": "hypothesis",
+      "description": "A hypothesis, theory, or assumption to test",
+      "icon": "💡",
+      "color": "#f59e0b",
+      "priority": 3
+    },
+    {
+      "type": "methodology",
+      "description": "Research methodology, approach, or technique",
+      "icon": "🔬",
+      "color": "#10b981",
+      "priority": 4
+    },
+    {
+      "type": "limitation",
+      "description": "A limitation, caveat, or constraint",
+      "icon": "⚠️",
+      "color": "#ef4444",
+      "priority": 5
+    },
+    {
+      "type": "connection",
+      "description": "A connection between concepts or findings",
+      "icon": "🔗",
+      "color": "#6366f1",
+      "priority": 6
+    }
+  ],
+  "concepts": [
+    "primary-source",
+    "secondary-source",
+    "quantitative",
+    "qualitative",
+    "peer-reviewed",
+    "meta-analysis",
+    "case-study",
+    "experimental",
+    "observational",
+    "theoretical",
+    "empirical",
+    "correlation",
+    "causation",
+    "sample-size",
+    "statistical-significance"
+  ],
+  "prompts": {
+    "observation": "Analyze this research interaction and extract observations. Focus on:\n- Key findings and insights\n- Sources and references mentioned\n- Hypotheses being explored\n- Methodological approaches\n- Limitations or caveats\n- Connections between concepts\n\nCategorize each observation by type and extract relevant concepts.",
+    "summary": "Summarize this research session. Include:\n- Main research question or topic\n- Key findings discovered\n- Sources reviewed\n- Hypotheses formed or tested\n- Methodological notes\n- Open questions for further investigation"
+  },
+  "settings": {
+    "max_observations_per_prompt": 8,
+    "auto_tag": true,
+    "include_file_context": false
+  }
+}
