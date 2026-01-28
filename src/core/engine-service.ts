@@ -247,8 +247,8 @@ export class WorkerService {
 
       // Load mode configuration
       const { ModeManager } = await import('./domain/ModeManager.js');
-      const { SettingsDefaultsManager } = await import('../shared/SettingsDefaultsManager.js');
-      const { USER_SETTINGS_PATH } = await import('../shared/paths.js');
+      const { SettingsDefaultsManager } = await import('../common/SettingsDefaultsManager.js');
+      const { USER_SETTINGS_PATH } = await import('../common/paths.js');
 
       const settings = SettingsDefaultsManager.loadFromFile(USER_SETTINGS_PATH);
       const modeId = settings.CLAUDE_RECALL_MODE;
