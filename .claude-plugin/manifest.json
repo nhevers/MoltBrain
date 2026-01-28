@@ -1,0 +1,15 @@
+{
+  "$schema": "https://claude.ai/schemas/plugin.json",
+  "name": "claude-recall",
+  "version": "9.0.9",
+  "description": "Long-term memory layer for Claude Code that learns and recalls your project context automatically",
+  "owner": {
+    "name": "nhevers"
+  },
+  "repository": "https://github.com/nhevers/claude-recall",
+  "license": "AGPL-3.0",
+  "keywords": ["memory", "context", "recall", "mcp"],
+  "engines": {
+    "claude-code": ">=1.0.0"
+  }
+}
