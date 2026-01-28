@@ -3,7 +3,7 @@
   "version": "9.0.9",
   "description": "Persistent memory system for Claude Code - seamlessly preserve context across sessions",
   "author": {
-    "name": ""
+    "name": "nhevers"
   },
   "repository": "https://github.com/nhevers/claude-recall",
   "license": "AGPL-3.0",
