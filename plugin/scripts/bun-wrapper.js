@@ -6,7 +6,7 @@
  * This handles cases where bun is not in PATH.
  */
 import { existsSync } from 'fs';
-import { spawn } from 'child_process';
+import { spawn, spawnSync } from 'child_process';
 import { join } from 'path';
 import { homedir } from 'os';
 
@@ -18,7 +18,6 @@ const IS_WINDOWS = process.platform === 'win32';
 function getBunPath() {
   // Try PATH first
   try {
-    const { spawnSync } = require('child_process');
     const result = spawnSync('bun', ['--version'], {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
