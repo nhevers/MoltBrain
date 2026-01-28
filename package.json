@@ -16,6 +16,9 @@
     "nodejs"
   ],
   "author": "nhevers",
+  "owner": {
+    "name": "nhevers"
+  },
   "license": "AGPL-3.0",
   "repository": {
     "type": "git",
