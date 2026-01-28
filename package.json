@@ -38,11 +38,11 @@
       "types": "./dist/sdk/index.d.ts",
       "import": "./dist/sdk/index.js"
     },
-    "./modes/*": "./extension/profiles/*"
+    "./modes/*": "./plugin/profiles/*"
   },
   "files": [
     "dist",
-    "extension"
+    "plugin"
   ],
   "engines": {
     "node": ">=18.0.0",
@@ -59,10 +59,10 @@
     "worker:tail": "tail -f 50 ~/.claude-recall/logs/worker-$(date +%Y-%m-%d).log",
     "changelog:generate": "node scripts/generate-changelog.js",
     "discord:notify": "node scripts/discord-release-notify.js",
-    "worker:start": "bun extension/runtime/engine-runtime.cjs start",
-    "worker:stop": "bun extension/runtime/engine-runtime.cjs stop",
-    "worker:restart": "bun extension/runtime/engine-runtime.cjs restart",
-    "worker:status": "bun extension/runtime/engine-runtime.cjs status",
+    "worker:start": "bun plugin/scripts/engine-runtime.cjs start",
+    "worker:stop": "bun plugin/scripts/engine-runtime.cjs stop",
+    "worker:restart": "bun plugin/scripts/engine-runtime.cjs restart",
+    "worker:status": "bun plugin/scripts/engine-runtime.cjs status",
     "queue": "bun scripts/check-pending-queue.ts",
     "queue:process": "bun scripts/check-pending-queue.ts --process",
     "queue:clear": "bun scripts/clear-failed-queue.ts --all --force",
