@@ -11,7 +11,7 @@
     {
       "name": "claude-recall",
       "version": "9.0.9",
-      "source": "./extension",
+      "source": "./plugin",
       "description": "Persistent memory system for Claude Code - context compression across sessions"
     }
   ]
