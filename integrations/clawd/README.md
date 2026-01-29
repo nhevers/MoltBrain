@@ -4,30 +4,69 @@ Long-term memory extension for [MoltBot](https://github.com/moltbot/moltbot) tha
 
 ## Installation
 
-### Option 1: As MoltBot Extension
+### Option 1: As MoltBot Extension (Recommended)
 
-Add to your MoltBot `extensions/` folder:
+#### For Bundled Installation
 
-```bash
-cd your-clawd-installation/extensions
-git clone https://github.com/nhevers/claude-recall.git claude-recall
-cd claude-recall/integrations/clawd
-npm install && npm run build
-```
+If you're using MoltBot from source or have cloned the repository:
 
-Then add to your MoltBot config:
+1. **Copy the extension to MoltBot's extensions directory:**
+   ```bash
+   cd your-moltbot-installation/extensions
+   git clone https://github.com/nhevers/claude-recall.git claude-recall
+   cd claude-recall/integrations/clawd
+   ```
 
-```json
-{
-  "extensions": {
-    "claude-recall": {
-      "enabled": true,
-      "dataDir": ".claude-recall",
-      "autoCapture": true
-    }
-  }
-}
-```
+2. **Install dependencies and build:**
+   ```bash
+   npm install && npm run build
+   ```
+
+3. **Enable the plugin:**
+   ```bash
+   pnpm moltbot plugins enable claude-recall
+   ```
+   
+   **Important:** Bundled plugins are disabled by default in MoltBot. You must explicitly enable them.
+
+4. **Configure in MoltBot config** (optional):
+   ```json
+   {
+     "plugins": {
+       "entries": {
+         "claude-recall": {
+           "enabled": true,
+           "config": {
+             "dataDir": ".claude-recall",
+             "maxMemories": 10,
+             "autoCapture": true
+           }
+         }
+       }
+     }
+   }
+   ```
+
+5. **Restart MoltBot gateway** (if running) to apply changes.
+
+#### For Standalone Installation
+
+If you're installing in a user directory:
+
+1. **Clone to your extensions directory:**
+   ```bash
+   cd ~/.moltbot/extensions
+   git clone https://github.com/nhevers/claude-recall.git claude-recall
+   cd claude-recall/integrations/clawd
+   npm install && npm run build
+   ```
+
+2. **Enable the plugin:**
+   ```bash
+   pnpm moltbot plugins enable claude-recall
+   ```
+
+3. **Restart MoltBot gateway.**
 
 ### Option 2: As MoltBot Skill
 
@@ -100,12 +139,17 @@ Works across all MoltBot channels:
 
 ## Available Tools
 
-When installed as a skill, these tools become available:
+When installed as an extension, these tools become available to the MoltBot agent:
 
 ### `recall_context`
 
 Retrieve relevant memories based on current context.
 
+**Parameters:**
+- `context` (string): The current context to find relevant memories for
+- `maxResults` (number, optional): Maximum number of memories to return (default: 10)
+
+**Example:**
 ```
 recall_context("working on the authentication module")
 ```
@@ -114,6 +158,12 @@ recall_context("working on the authentication module")
 
 Search through stored memories.
 
+**Parameters:**
+- `query` (string): Search query
+- `limit` (number, optional): Maximum results to return (default: 20)
+- `types` (array of strings, optional): Filter by memory types (preference, decision, learning, context)
+
+**Example:**
 ```
 search_memories("database schema", limit=10, types=["decision", "learning"])
 ```
@@ -122,6 +172,12 @@ search_memories("database schema", limit=10, types=["decision", "learning"])
 
 Manually save important information.
 
+**Parameters:**
+- `content` (string): The information to remember
+- `type` (string): Type of memory - one of: "preference", "decision", "learning", "context"
+- `metadata` (object, optional): Additional metadata to store
+
+**Example:**
 ```
 save_memory("Always use prepared statements for SQL queries", type="preference")
 ```
@@ -134,6 +190,31 @@ save_memory("Always use prepared statements for SQL queries", type="preference")
 | `maxMemories` | number | `10` | Max memories per context |
 | `autoCapture` | boolean | `true` | Auto-capture observations |
 | `channels` | array | `[]` | Enabled channels (empty = all) |
+
+## Troubleshooting
+
+### Plugin Not Loading
+
+**Problem:** Plugin shows as "disabled" in `pnpm moltbot plugins list`
+
+**Solution:**
+1. Enable the plugin: `pnpm moltbot plugins enable claude-recall`
+2. Restart the MoltBot gateway
+3. Verify in config: `plugins.entries.claude-recall.enabled` should be `true`
+
+### Tools Not Appearing
+
+**Problem:** Tools (`recall_context`, `search_memories`, `save_memory`) don't appear in agent's tool list
+
+**Solution:**
+1. Verify plugin is enabled (see above)
+2. Rebuild TypeScript: `npm run build` or `pnpm tsc`
+3. Restart MoltBot gateway
+4. Check logs for registration messages: `[claude-recall] Extension register() called`
+
+### Bundled Plugin Disabled by Default
+
+**Note:** If the extension is installed in MoltBot's `extensions/` directory (bundled), it will be disabled by default. You must explicitly enable it using `pnpm moltbot plugins enable claude-recall`.
 
 ## API
 
@@ -154,6 +235,21 @@ When using MCP, these methods are available:
 - `memory/recall`: Get context-relevant memories
 - `memory/save`: Store new memory
 - `memory/timeline`: Get recent activity
+
+## Development
+
+### Building
+
+```bash
+npm install
+npm run build
+```
+
+### Watching for Changes
+
+```bash
+npm run watch
+```
 
 ## License
 
