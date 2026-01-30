@@ -1,19 +1,19 @@
 import { Type } from "@sinclair/typebox";
-import type { MoltbotPluginApi } from "clawdbot/plugin-sdk";
-import { emptyPluginConfigSchema } from "clawdbot/plugin-sdk";
+import type { OpenClawPluginApi } from "openclaw/plugin-sdk";
+import { emptyPluginConfigSchema } from "openclaw/plugin-sdk";
 
-console.log("[claude-recall] Module loading - top level");
+console.log("[moltbrain] Module loading - top level");
 
-const claudeRecallPlugin = {
-  id: "claude-recall",
-  name: "Claude Recall Memory",
+const moltbrainPlugin = {
+  id: "moltbrain",
+  name: "MoltBrain Memory",
   description: "Long-term memory layer that learns and recalls your context",
   kind: "extension",
   configSchema: emptyPluginConfigSchema(),
-  register(api: MoltbotPluginApi) {
-    console.log("[claude-recall] Extension register() called");
+  register(api: OpenClawPluginApi) {
+    console.log("[moltbrain] Extension register() called");
     // Register memory tools
-    console.log("[claude-recall] Registering recall_context tool");
+    console.log("[moltbrain] Registering recall_context tool");
     api.registerTool(
       {
         name: "recall_context",
@@ -24,7 +24,7 @@ const claudeRecallPlugin = {
           maxResults: Type.Optional(Type.Number({ description: "Maximum number of memories to return", default: 10 })),
         }),
         async execute(_toolCallId, params) {
-          // TODO: Connect to claude-recall API at http://localhost:37777
+          // TODO: Connect to moltbrain API at http://localhost:37777
           return {
             content: [{ type: "text", text: JSON.stringify({ memories: [], count: 0 }, null, 2) }],
             details: { memories: [], count: 0 },
@@ -33,9 +33,9 @@ const claudeRecallPlugin = {
       },
       { name: "recall_context" },
     );
-    console.log("[claude-recall] recall_context registered");
+    console.log("[moltbrain] recall_context registered");
 
-    console.log("[claude-recall] Registering search_memories tool");
+    console.log("[moltbrain] Registering search_memories tool");
     api.registerTool(
       {
         name: "search_memories",
@@ -47,7 +47,7 @@ const claudeRecallPlugin = {
           types: Type.Optional(Type.Array(Type.String(), { description: "Filter by memory types (preference, decision, learning, context)" })),
         }),
         async execute(_toolCallId, params) {
-          // TODO: Connect to claude-recall API at http://localhost:37777
+          // TODO: Connect to moltbrain API at http://localhost:37777
           return {
             content: [{ type: "text", text: JSON.stringify({ results: [], count: 0, query: params.query }, null, 2) }],
             details: { results: [], count: 0, query: params.query },
@@ -56,9 +56,9 @@ const claudeRecallPlugin = {
       },
       { name: "search_memories" },
     );
-    console.log("[claude-recall] search_memories registered");
+    console.log("[moltbrain] search_memories registered");
 
-    console.log("[claude-recall] Registering save_memory tool");
+    console.log("[moltbrain] Registering save_memory tool");
     api.registerTool(
       {
         name: "save_memory",
@@ -75,7 +75,7 @@ const claudeRecallPlugin = {
           metadata: Type.Optional(Type.Record(Type.String(), Type.Unknown(), { description: "Additional metadata to store" })),
         }),
         async execute(_toolCallId, params) {
-          // TODO: Connect to claude-recall API at http://localhost:37777
+          // TODO: Connect to moltbrain API at http://localhost:37777
           const result = { id: `mem_${Date.now()}`, timestamp: new Date().toISOString(), message: "Memory saved successfully" };
           return {
             content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
@@ -85,9 +85,9 @@ const claudeRecallPlugin = {
       },
       { name: "save_memory" },
     );
-    console.log("[claude-recall] save_memory registered");
-    console.log("[claude-recall] All tools registered successfully");
+    console.log("[moltbrain] save_memory registered");
+    console.log("[moltbrain] All tools registered successfully");
   },
 };
 
-export default claudeRecallPlugin;
+export default moltbrainPlugin;
