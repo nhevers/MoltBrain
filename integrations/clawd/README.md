@@ -1,20 +1,20 @@
-# Claude Recall for MoltBot
+# MoltBrain for OpenClaw
 
-Long-term memory extension for [MoltBot](https://github.com/moltbot/moltbot) that learns and recalls your context automatically.
+Long-term memory extension for [OpenClaw](https://github.com/openclaw/openclaw) that learns and recalls your context automatically.
 
 ## Installation
 
-### Option 1: As MoltBot Extension (Recommended)
+### Option 1: As OpenClaw Extension (Recommended)
 
 #### For Bundled Installation
 
-If you're using MoltBot from source or have cloned the repository:
+If you're using OpenClaw from source or have cloned the repository:
 
-1. **Copy the extension to MoltBot's extensions directory:**
+1. **Copy the extension to OpenClaw's extensions directory:**
    ```bash
-   cd your-moltbot-installation/extensions
-   git clone https://github.com/nhevers/claude-recall.git claude-recall
-   cd claude-recall/integrations/clawd
+   cd your-openclaw-installation/extensions
+   git clone https://github.com/nhevers/moltbrain.git moltbrain
+   cd moltbrain/integrations/openclaw
    ```
 
 2. **Install dependencies and build:**
@@ -24,20 +24,20 @@ If you're using MoltBot from source or have cloned the repository:
 
 3. **Enable the plugin:**
    ```bash
-   pnpm moltbot plugins enable claude-recall
+   pnpm openclaw plugins enable moltbrain
    ```
    
-   **Important:** Bundled plugins are disabled by default in MoltBot. You must explicitly enable them.
+   **Important:** Bundled plugins are disabled by default in OpenClaw. You must explicitly enable them.
 
-4. **Configure in MoltBot config** (optional):
+4. **Configure in OpenClaw config** (optional):
    ```json
    {
      "plugins": {
        "entries": {
-         "claude-recall": {
+         "moltbrain": {
            "enabled": true,
            "config": {
-             "dataDir": ".claude-recall",
+             "dataDir": ".moltbrain",
              "maxMemories": 10,
              "autoCapture": true
            }
@@ -47,7 +47,7 @@ If you're using MoltBot from source or have cloned the repository:
    }
    ```
 
-5. **Restart MoltBot gateway** (if running) to apply changes.
+5. **Restart OpenClaw gateway** (if running) to apply changes.
 
 #### For Standalone Installation
 
@@ -55,33 +55,33 @@ If you're installing in a user directory:
 
 1. **Clone to your extensions directory:**
    ```bash
-   cd ~/.moltbot/extensions
-   git clone https://github.com/nhevers/claude-recall.git claude-recall
-   cd claude-recall/integrations/clawd
+   cd ~/.openclaw/extensions
+   git clone https://github.com/nhevers/moltbrain.git moltbrain
+   cd moltbrain/integrations/openclaw
    npm install && npm run build
    ```
 
 2. **Enable the plugin:**
    ```bash
-   pnpm moltbot plugins enable claude-recall
+   pnpm openclaw plugins enable moltbrain
    ```
 
-3. **Restart MoltBot gateway.**
+3. **Restart OpenClaw gateway.**
 
-### Option 2: As MoltBot Skill
+### Option 2: As OpenClaw Skill
 
-Copy `skill.json` to your MoltBot skills directory:
+Copy `skill.json` to your OpenClaw skills directory:
 
 ```bash
-cp integrations/clawd/skill.json ~/.moltbot/skills/claude-recall.json
+cp integrations/openclaw/skill.json ~/.openclaw/skills/moltbrain.json
 ```
 
-Configure in your MoltBot config:
+Configure in your OpenClaw config:
 
 ```json
 {
   "skills": {
-    "claude-recall": {
+    "moltbrain": {
       "maxMemories": 10,
       "channels": ["discord", "slack", "imessage"]
     }
@@ -97,15 +97,15 @@ Start the MCP server:
 npm run mcp:start
 ```
 
-Add to your MoltBot MCP config:
+Add to your OpenClaw MCP config:
 
 ```json
 {
   "mcp": {
     "servers": {
-      "claude-recall": {
+      "moltbrain": {
         "command": "node",
-        "args": ["path/to/claude-recall/src/mcp/server.js", "--stdio"]
+        "args": ["path/to/moltbrain/src/mcp/server.js", "--stdio"]
       }
     }
   }
@@ -116,7 +116,7 @@ Add to your MoltBot MCP config:
 
 ### Automatic Memory Capture
 
-The extension hooks into MoltBot's agent loop to automatically capture:
+The extension hooks into OpenClaw's agent loop to automatically capture:
 
 - **Preferences**: User-stated preferences and likes/dislikes
 - **Decisions**: Important decisions made during conversations
@@ -125,11 +125,11 @@ The extension hooks into MoltBot's agent loop to automatically capture:
 
 ### Context Injection
 
-Before each response, relevant memories are automatically injected into the context, giving MoltBot awareness of past interactions.
+Before each response, relevant memories are automatically injected into the context, giving OpenClaw awareness of past interactions.
 
 ### Multi-Channel Support
 
-Works across all MoltBot channels:
+Works across all OpenClaw channels:
 - Discord
 - Slack
 - iMessage
@@ -139,7 +139,7 @@ Works across all MoltBot channels:
 
 ## Available Tools
 
-When installed as an extension, these tools become available to the MoltBot agent:
+When installed as an extension, these tools become available to the OpenClaw agent:
 
 ### `recall_context`
 
@@ -186,7 +186,7 @@ save_memory("Always use prepared statements for SQL queries", type="preference")
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `dataDir` | string | `.claude-recall` | Storage directory |
+| `dataDir` | string | `.moltbrain` | Storage directory |
 | `maxMemories` | number | `10` | Max memories per context |
 | `autoCapture` | boolean | `true` | Auto-capture observations |
 | `channels` | array | `[]` | Enabled channels (empty = all) |
@@ -195,12 +195,12 @@ save_memory("Always use prepared statements for SQL queries", type="preference")
 
 ### Plugin Not Loading
 
-**Problem:** Plugin shows as "disabled" in `pnpm moltbot plugins list`
+**Problem:** Plugin shows as "disabled" in `pnpm openclaw plugins list`
 
 **Solution:**
-1. Enable the plugin: `pnpm moltbot plugins enable claude-recall`
-2. Restart the MoltBot gateway
-3. Verify in config: `plugins.entries.claude-recall.enabled` should be `true`
+1. Enable the plugin: `pnpm openclaw plugins enable moltbrain`
+2. Restart the OpenClaw gateway
+3. Verify in config: `plugins.entries.moltbrain.enabled` should be `true`
 
 ### Tools Not Appearing
 
@@ -209,18 +209,18 @@ save_memory("Always use prepared statements for SQL queries", type="preference")
 **Solution:**
 1. Verify plugin is enabled (see above)
 2. Rebuild TypeScript: `npm run build` or `pnpm tsc`
-3. Restart MoltBot gateway
-4. Check logs for registration messages: `[claude-recall] Extension register() called`
+3. Restart OpenClaw gateway
+4. Check logs for registration messages: `[moltbrain] Extension register() called`
 
 ### Bundled Plugin Disabled by Default
 
-**Note:** If the extension is installed in MoltBot's `extensions/` directory (bundled), it will be disabled by default. You must explicitly enable it using `pnpm moltbot plugins enable claude-recall`.
+**Note:** If the extension is installed in OpenClaw's `extensions/` directory (bundled), it will be disabled by default. You must explicitly enable it using `pnpm openclaw plugins enable moltbrain`.
 
 ## API
 
 ### Hooks
 
-The extension implements these MoltBot lifecycle hooks:
+The extension implements these OpenClaw lifecycle hooks:
 
 - `onSessionStart`: Initialize session memory
 - `onMessage`: Inject relevant context
@@ -235,6 +235,10 @@ When using MCP, these methods are available:
 - `memory/recall`: Get context-relevant memories
 - `memory/save`: Store new memory
 - `memory/timeline`: Get recent activity
+
+## MoltBook Integration
+
+MoltBrain integrates with [MoltBook](https://moltbook.com) to share memories and learn from other agents. See the [MoltBook integration guide](../../integrations/moltbook/README.md) for details.
 
 ## Development
 
