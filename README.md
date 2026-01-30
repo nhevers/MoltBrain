@@ -1,5 +1,7 @@
 <p align="center">
-  <img width="1376" height="768" alt="claude-recall banner" src="https://github.com/user-attachments/assets/23bb84ed-8a6d-4933-ae8d-d8381090af6a" />
+  
+<img width="1344" height="768" alt="Untitled design (32)" src="https://github.com/user-attachments/assets/03483342-0950-4d80-8bd2-423cd644b6ba" />
+
 </p>
 
 <p align="center">
