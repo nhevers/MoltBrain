@@ -27,7 +27,7 @@ export class MCPHandlers {
   private dataDir: string;
 
   constructor(dataDir?: string) {
-    this.dataDir = dataDir || process.env.CLAUDE_RECALL_DATA_DIR || '.claude-recall';
+    this.dataDir = dataDir || process.env.MOLTBRAIN_DATA_DIR || '.moltbrain';
   }
 
   async handleRequest(request: MCPRequest): Promise<MCPResponse> {
@@ -76,7 +76,7 @@ export class MCPHandlers {
 
     const result: InitializeResult = {
       serverInfo: {
-        name: 'claude-recall',
+        name: 'moltbrain',
         version: SERVER_VERSION,
       },
       capabilities,
