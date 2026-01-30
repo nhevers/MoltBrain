@@ -1,0 +1,41 @@
+{
+  "name": "moltbrain",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "MoltBrain memory extension for OpenClaw",
+  "keywords": [
+    "openclaw",
+    "openclaw",
+    "moltbrain",
+    "memory",
+    "ai-assistant",
+    "extension"
+  ],
+  "author": "nhevers",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nhevers/moltbrain.git",
+    "directory": "integrations/openclaw"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.1.26"
+  },
+  "devDependencies": {
+    "openclaw": "workspace:*",
+    "typescript": "^5.9.3",
+    "@sinclair/typebox": "^0.34.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

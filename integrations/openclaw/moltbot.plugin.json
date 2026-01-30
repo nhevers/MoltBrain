@@ -1,0 +1,25 @@
+{
+  "id": "moltbrain",
+  "kind": "extension",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "dataDir": {
+        "type": "string",
+        "description": "Directory to store memory data",
+        "default": ".moltbrain"
+      },
+      "maxMemories": {
+        "type": "number",
+        "description": "Maximum memories to inject per context",
+        "default": 10
+      },
+      "autoCapture": {
+        "type": "boolean",
+        "description": "Automatically capture observations from conversations",
+        "default": true
+      }
+    }
+  }
+}
